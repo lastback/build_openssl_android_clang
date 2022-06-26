@@ -4,7 +4,7 @@
 
 if [[ -z "${ANDROID_NDK_HOME}" ]]; then
 	# need change
-	export ANDROID_NDK_HOME=~/Android/Sdk/ndk/23.0.7123448
+	export ANDROID_NDK_HOME=~/Android/sdk/ndk/24.0.8215888
 else
 	echo "Use environment variable ANDROID_NDK_HOME is: $ANDROID_NDK_HOME"
 fi
@@ -41,7 +41,7 @@ build_android_clang() {
 
 	# Build openssl libraries
 	#perl -pi -w -e 's/\-mandroid//g;' ./Configure
-	PATH=$ANDROID_NDK_HOME/toolchains/llvm/prebuilt/linux-x86_64/bin:$PATH
+	PATH=$ANDROID_NDK_HOME/toolchains/llvm/prebuilt/darwin-x86_64/bin:$PATH
 	#turn off warning  macro-redefined
 	# export CFLAGS="-Wno-macro-redefined -O3"
 	./Configure  $CONFIGURE_PLATFORM -D__ANDROID_API__=$ANDROID_API shared threads no-asm no-sse2 no-ssl2 no-ssl3 no-comp no-hw no-engine
@@ -60,8 +60,8 @@ build_android_clang() {
 }
 
 # Build libcrypto for armeabi-v7a, x86 and arm64-v8a.
-build_android_clang  "16"    	"android-arm"
-build_android_clang  "16"    	"android-x86"
+build_android_clang  "19"    	"android-arm"
+build_android_clang  "19"    	"android-x86"
 build_android_clang  "21"    	"android-arm64"
 
 exit 0
